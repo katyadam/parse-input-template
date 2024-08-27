@@ -1,0 +1,18 @@
+{
+    "inputs": [
+        "<path>/<pkg-version>",
+        "<app-name>-<pkg-version>",
+        "<commit-id>..<pkg-version>"
+    ],
+    "vars": {
+        "pkg-version": "2099.99.99",
+        "app-name": "app",
+        "path": "example/foo/bar",
+        "commit-id": "#42"
+    },
+    "parsed-inputs": [
+        "example/foo/bar/2099.99.99",
+        "app-2099.99.99",
+        "#42..2099.99.99"
+    ]
+}

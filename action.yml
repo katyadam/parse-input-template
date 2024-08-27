@@ -1,23 +1,25 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Parse input template'
+description: 'This template is used for parsing custom inputs as templates.'
+author: 'Adam Kattan Rahmani'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
   icon: 'heart'
   color: 'red'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  templates:
+    type: string
     required: true
-    default: '1000'
+    description: "Provide JSON array of string in a template format."
+  vars:
+    type: string
+    required: true
+    description: "Provide JSON dictionary of 'key': 'value' encoded variables."
 
-# Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  parsed-inputs:
+    type: string
 
 runs:
   using: node20
