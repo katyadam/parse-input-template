@@ -58,11 +58,11 @@ jobs:
         uses: ./
         with:
           templates:
-            "[ '<path>/<pkg-version>', '<app-name>-<pkg-version>',
-            '<commit-id>..<pkg-version>' ]"
+            '[ "<path>/<pkg-version>", "<app-name>-<pkg-version>",
+            "<commit-id>..<pkg-version>" ]'
           vars:
-            "{ 'pkg-version': '2099.99.99', 'app-name': 'app', 'path':
-            'example/foo/bar', 'commit-id': '#42' }"
+            '{ "pkg-version": "2099.99.99", "app-name": "app", "path":
+            "example/foo/bar", "commit-id": "#42" }'
 
       - name: Print Output
         id: output
