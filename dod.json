@@ -10,7 +10,7 @@
         "path": "example/foo/bar",
         "commit-id": "#42"
     },
-    "parsed-inputs": [
+    "replacements": [
         "example/foo/bar/2099.99.99",
         "app-2099.99.99",
         "#42..2099.99.99"
