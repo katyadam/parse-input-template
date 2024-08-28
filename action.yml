@@ -17,7 +17,6 @@ inputs:
 
 outputs:
   parsed-inputs:
-    type: string
 
 runs:
   using: node20
