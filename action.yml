@@ -9,11 +9,9 @@ branding:
 
 inputs:
   templates:
-    type: string
     required: true
     description: 'Provide JSON array of string in a template format.'
   vars:
-    type: string
     required: true
     description: "Provide JSON dictionary of 'key': 'value' encoded variables."
 
