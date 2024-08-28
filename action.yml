@@ -11,7 +11,7 @@ inputs:
   templates:
     type: string
     required: true
-    description: "Provide JSON array of string in a template format."
+    description: 'Provide JSON array of string in a template format.'
   vars:
     type: string
     required: true

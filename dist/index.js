@@ -24951,52 +24951,49 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = run;
 const core = __importStar(__nccwpck_require__(2186));
-const wait_1 = __nccwpck_require__(5259);
+const OPENED = '<';
+const CLOSED = '>';
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
-        const ms = core.getInput('milliseconds');
+        const rawTemplates = core.getInput('templates');
+        const rawVars = core.getInput('vars');
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        core.debug(`Waiting ${ms} milliseconds ...`);
-        // Log the current timestamp, wait, then log the new timestamp
-        core.debug(new Date().toTimeString());
-        await (0, wait_1.wait)(parseInt(ms, 10));
-        core.debug(new Date().toTimeString());
-        // Set outputs for other workflow steps to use
-        core.setOutput('time', new Date().toTimeString());
+        core.debug(`Templates: ${rawTemplates}`);
+        core.debug(`Vars: ${rawVars}`);
+        const outputs = getOutputs(rawTemplates, rawVars);
+        core.setOutput('replacements', JSON.stringify(outputs));
     }
     catch (error) {
-        // Fail the workflow run if an error occurs
         if (error instanceof Error)
             core.setFailed(error.message);
     }
 }
-
-
-/***/ }),
-
-/***/ 5259:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.wait = wait;
-/**
- * Wait for a number of milliseconds.
- * @param milliseconds The number of milliseconds to wait.
- * @returns {Promise<string>} Resolves with 'done!' after the wait is over.
- */
-async function wait(milliseconds) {
-    return new Promise(resolve => {
-        if (isNaN(milliseconds)) {
-            throw new Error('milliseconds not a number');
+function getOutputs(rawTemplates, rawVars) {
+    const templates = JSON.parse(rawTemplates);
+    const vars = JSON.parse(rawVars);
+    return templates.map(template => parse(template, vars));
+}
+function parse(template, vars) {
+    let stack = [];
+    let res = '';
+    for (const c of template) {
+        if (c == OPENED) {
+            res += stack.join('');
+            stack = [];
+            continue;
         }
-        setTimeout(() => resolve('done!'), milliseconds);
-    });
+        else if (c == CLOSED) {
+            res += vars[stack.join('')];
+            stack = [];
+            continue;
+        }
+        stack.push(c);
+    }
+    return res;
 }
 
 
